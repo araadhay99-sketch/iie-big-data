@@ -68,11 +68,14 @@ deployment, hosting-account creation, message sending or new paid service occurr
 ## GitHub source handoff
 
 The owner requested using GitHub. The selected existing repository is
-araadhay99-sketch/iie-big-data. Only Haven source, tests and deployment documents
-are prepared for its initial commit; application data, credentials, environments,
-test artifacts and earlier business records are excluded. GitHub stores the code;
+araadhay99-sketch/iie-big-data. Haven source, tests and deployment documents were
+pushed to main and verified at initial source commit
+816019f85bb6206d29967ed9e57f621dd07a4761. Application data, credentials, environments,
+test artifacts and earlier business records were excluded. GitHub stores the code;
 it does not run the AI backend or supply the app's private persistent file volume.
 
 Additional implementation: wsgi.py and requirements-hosting.txt provide optional
 traditional-host compatibility. One additional WSGI integration test passed.
-No files were transferred to a provider or the owner’s laptop.
+No application data was transferred to a hosting provider or the owner’s laptop.
+GitHub source publication is complete; application hosting remains blocked on an
+authorized account, HTTPS access and verified persistent storage.
