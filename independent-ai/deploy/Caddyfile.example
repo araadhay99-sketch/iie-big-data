@@ -1,0 +1,5 @@
+# Replace with a DNS name controlled by the owner, pointed at the authorized host.
+# This template has NOT been activated. Caddy handles HTTPS on the hosting server.
+ai.example.invalid {
+    reverse_proxy 127.0.0.1:7860
+}

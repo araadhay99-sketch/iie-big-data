@@ -1,0 +1,50 @@
+const {chromium}=require(process.env.HAVEN_PLAYWRIGHT||'/tmp/haven-browser-tools/node_modules/playwright');
+const {spawn}=require('node:child_process');
+const fs=require('node:fs/promises'),os=require('node:os'),path=require('node:path'),net=require('node:net'),assert=require('node:assert/strict');
+(async()=>{
+ const root=path.resolve(__dirname,'..'),tmp=await fs.mkdtemp(path.join(os.tmpdir(),'haven-cloud-e2e-')),out=path.join(root,'artifacts');
+ await fs.mkdir(out,{recursive:true});
+ const probe=net.createServer();await new Promise(r=>probe.listen(0,'127.0.0.1',r));const port=probe.address().port;await new Promise(r=>probe.close(r));
+ const origin='http://127.0.0.1:'+port;
+ const server=spawn('python3',['run.py'],{cwd:root,env:{...process.env,HAVEN_DATA_DIR:tmp,HAVEN_PORT:String(port),HAVEN_CLOUD_ONLY:'1'},stdio:['ignore','pipe','pipe']});
+ let logs='';server.stderr.on('data',c=>{logs+=c.toString();});let browser;
+ try{
+  for(let i=0;i<60;i++){try{if((await fetch(origin+'/api/session')).ok)break;}catch{}if(server.exitCode!==null)throw new Error(logs);if(i===59)throw new Error('Server readiness timeout');await new Promise(r=>setTimeout(r,100));}
+  browser=await chromium.launch({executablePath:'/usr/bin/chromium',headless:true,args:['--no-sandbox']});
+  const context=await browser.newContext({viewport:{width:1440,height:1040}}),page=await context.newPage(),errors=[],external=[],checks=[];
+  page.on('pageerror',e=>errors.push(e.message));page.on('request',r=>{if(/^https?:/.test(r.url())&&!r.url().startsWith(origin+'/'))external.push(r.url());});
+  await page.goto(origin);await page.locator('#auth-view').waitFor({state:'visible'});
+  await page.locator('#password').fill('synthetic-cloud-password-123');await page.locator('#confirm-password').fill('synthetic-cloud-password-123');await page.locator('#auth-submit').click();await page.locator('#app-view').waitFor({state:'visible'});
+  await page.waitForFunction(()=>document.querySelector('#storage-description').textContent.includes('512'));
+  assert.deepEqual(await context.cookies(),[]);checks.push('Cloud login works with no browser cookies');
+  await page.locator('[data-tab=files]').click();
+  await page.locator('#file-input').setInputFiles({name:'cloud-only-notes.md',mimeType:'text/markdown',buffer:Buffer.from('The observatory vault marker is CLOUDBOX-427. The archive remains on the server.')});
+  await page.getByText('cloud-only-notes.md',{exact:true}).waitFor();
+  assert.equal(await page.locator('#file-list a[download]').count(),0);checks.push('File stored on server; client download controls absent');
+  await page.locator('#create-cloud-note').click();
+  await page.locator('#cloud-note-name').fill('scratchpad');
+  await page.locator('#cloud-note-content').fill('The private cloud note colour is SAPPHIRE. This text was created in browser memory and saved directly to the server.');
+  await page.locator('#cloud-note-save').click();
+  await page.locator('#cloud-note-dialog').waitFor({state:'hidden'});
+  await page.getByText('scratchpad.md',{exact:true}).waitFor();
+  await page.waitForFunction(()=>document.querySelector('#cloud-note-content').value==='');
+  checks.push('Create cloud note saves server-side without a local file');
+  await page.locator('[data-tab=chat]').click();await page.locator('#chat-input').fill('What is the observatory vault marker?');await page.locator('#send-message').click();
+  await page.waitForFunction(()=>document.querySelector('#messages').textContent.includes('CLOUDBOX-427'));
+  assert.equal(await page.locator('#messages a[download]').count(),0);checks.push('Server-side AI answers from the cloud-stored file');
+  await page.locator('#chat-input').fill('What is the private cloud note colour?');await page.locator('#send-message').click();
+  await page.waitForFunction(()=>document.querySelector('#messages').textContent.includes('SAPPHIRE'));
+  checks.push('AI retrieves a note created directly in the cloud');
+  const persistence=await page.evaluate(async()=>({local:localStorage.length,session:sessionStorage.length,databases:typeof indexedDB.databases==='function'?(await indexedDB.databases()).length:0,caches:(await caches.keys()).length,workers:(await navigator.serviceWorker.getRegistrations()).length}));
+  assert.deepEqual(persistence,{local:0,session:0,databases:0,caches:0,workers:0});checks.push('No localStorage, sessionStorage, IndexedDB, Cache API or service-worker data');
+  await page.screenshot({path:path.join(out,'cloud-chat.png'),fullPage:true});
+  await page.reload();await page.locator('#auth-view').waitFor({state:'visible'});assert.match(await page.locator('#auth-title').innerText(),/Welcome back/);checks.push('Reload clears the in-memory login token');
+  await page.locator('#password').fill('synthetic-cloud-password-123');await page.locator('#auth-submit').click();await page.locator('#app-view').waitFor({state:'visible'});
+  await page.waitForFunction(()=>document.querySelector('#messages').textContent.includes('CLOUDBOX-427'));
+  await page.locator('[data-tab=files]').click();await page.getByText('cloud-only-notes.md',{exact:true}).waitFor();checks.push('Files and conversation remain on server after browser reload');
+  await page.setViewportSize({width:390,height:844});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),true);checks.push('Cloud mode mobile layout fits');
+  assert.deepEqual(await context.cookies(),[]);assert.deepEqual(errors,[]);assert.deepEqual(external,[]);checks.push('No cookies, script errors or external browser HTTP requests');
+  const result={passed:checks.length,checks,browser_storage:persistence,external_requests:external,script_errors:errors,limitation:'App storage APIs and cookie use are checked; browser/OS cache, swap and password-manager behavior cannot be guaranteed byte-free. No public ingress or always-on hosting was tested.'};
+  await fs.writeFile(path.join(out,'cloud-browser-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
+ }finally{if(browser)await browser.close();server.kill('SIGTERM');await new Promise(r=>server.exitCode!==null?r():server.once('exit',r));await fs.rm(tmp,{recursive:true,force:true});}
+})().catch(e=>{console.error(e);process.exitCode=1;});
