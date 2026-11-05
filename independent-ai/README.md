@@ -9,11 +9,12 @@ server. Improving intelligence is deferred.
 
 The cloud-only application is implemented and tested inside this managed cloud
 workspace. **It is not a publicly accessible, always-on cloud service yet.** This
-session exposes no supported inbound HTTPS/preview/deployment route, cloud account
-identity or independently verified persistent volume. The environment’s outbound
-research proxy does not expose the application to the user.
+session exposes no supported inbound HTTPS/preview route. Authenticated management
+access to the owner's free PythonAnywhere account now works; minimal source and
+a fail-closed WSGI template are staged there. Installation and provider deployment
+remain pending. The environment's outbound proxy does not itself expose the app.
 
-No public URL, production deployment, cloud subscription, paid storage or new
+No public URL, production deployment, paid subscription/storage or new
 hosting expenditure has been created. Do not tell the user to install or download
 Haven onto their laptop. The source and internal review archive stay in this cloud
 workspace until a usable hosting route is provided.
@@ -152,14 +153,16 @@ No public cloud endpoint or persistent external hosting volume was verified.
 
 ## Conditional free-pilot option
 
-The owner has no hosting account. The checked candidate is PythonAnywhere
-Beginner, advertised at $0/month with one web app, HTTPS and 512 MiB total private
+The owner created a PythonAnywhere account and securely connected its management
+API. Beginner is advertised at $0/month with one web app, HTTPS and 512 MiB total private
 server storage. New free web apps have a one-month expiry/confirmation requirement;
 this is not a promise of maintenance-free, permanently available hosting.
 
 The optional wsgi.py adapter works with traditional Python WSGI hosting and has
 passed a cloud-login/upload/answer test. requirements-hosting.txt contains the
-extra dependency. Provider-specific permissions and actual deployment remain
-unverified; see deploy/free-host-options.md for official links and remaining gates.
-No owner laptop installation is needed. Account registration/email consent is an
-owner-only prerequisite; no account or paid plan has been created by the agent.
+extra dependency. Provider file read/write and account/version inspection work;
+the private bootstrap must still install dependencies, measure disk use and secure
+the owner before live configuration. See deploy/account-access.md and STATUS.md.
+No owner laptop installation is needed. The owner must open the prepared console
+to start it and enter their Haven password through hidden input. No paid plan has
+been selected, and periodic renewal/recovery automation is not configured.

@@ -24,7 +24,7 @@ The app cannot guarantee literal zero browser/OS disk writes: browser-managed
 cache, password-manager state, swap or crash reports are outside its control.
 The verified scope is no persistent application-managed laptop data or AI install.
 
-## Deployment blocker
+## Deployment gate — 5 November 2026
 
 Cloud-only code is ready for a real hosting deployment, but **not live for the
 owner’s browser**. This managed workspace has no available public ingress, HTTPS
@@ -36,19 +36,40 @@ Files in /workspace are current cloud workspace files, not evidence of a permane
 storage service. Environment snapshots must not be presented as preserving running
 processes. No production server, paid hosting or public endpoint was provisioned.
 
-The owner confirmed there is no hosting account outside this workspace. No cloud
-provider identity/account is currently bound. A bounded public-doc review found
-PythonAnywhere Beginner as a conditional free-pilot candidate: one HTTPS web app,
-512 MiB total private disk, one-month web-app expiry. See deploy/free-host-options.md.
-The traditional WSGI adapter passed a real cloud-login/upload/answer compatibility
-test, avoiding experimental ASGI pricing. This is not a provider deployment.
+The owner created a free PythonAnywhere account and supplied its API token through
+secure environment settings. The published runtime reports the destination-bound
+credential and username ready. Real authenticated API calls verified a 100-second
+daily console CPU allowance, Python 3.13 availability and no existing traditional
+webapps/consoles. No Haven paths existed before staging. A 32,173-byte source ZIP
+and fail-closed WSGI template were uploaded privately and read back byte-for-byte.
+No website has been created or enabled; no billing/upgrade endpoint was used.
 
-The next indispensable owner step is to create the free Beginner account through
-PythonAnywhere’s secure signup and provide only its username. Do not request
-passwords/API keys in chat or assume paid fees/billing consent. Actual free-account
-API access, dependency footprint, owner initialization before public setup,
-HTTPS/expiry behavior and persistent-data/recovery checks remain deployment gates.
-Do not spend money or claim a free permanently available host without evidence.
+PythonAnywhere Beginner is advertised with one HTTPS web app, 512 MiB total private
+disk and one-month web-app expiry. See deploy/free-host-options.md. The traditional
+WSGI adapter passed a local cloud-login/upload/answer compatibility test, avoiding
+experimental ASGI pricing. This does not establish provider compatibility yet.
+
+The next indispensable owner action is to open the prepared private setup console
+and choose a Haven password through hidden input. The provider's official API can
+create that console but its process starts only when connected in a browser. No
+browser-control tool is available. Console details and exact staging checksums
+belong in ignored .private-hosting/deployment-state.json; do not duplicate consoles.
+The private bootstrap was uploaded and read back exactly, and one Python 3.13
+console was created with its fixed script/checksum arguments. Installation has
+not started through these tools, and no owner password has been entered.
+
+Setup validation: four preflight tests, three scoped-provider tests and six
+bootstrap safety tests passed. A separate real synthetic WSGI smoke passed locally
+for setup/login/upload/source retrieval/download blocking and file/chat persistence
+after reopening. These checks do not claim installation on PythonAnywhere.
+
+The bootstrap must install pinned binary dependencies, measure home usage, run
+synthetic WSGI/filesystem/restart checks and initialize the password hash privately.
+Only then configure the public WSGI site. Initial file payload quota is 64 MiB,
+leaving room within advertised disk limits for dependencies and database overhead.
+Actual footprint, owner setup, HTTPS, restart behavior and recovery remain gates.
+No automatic monthly renewal or independent backup infrastructure is configured.
+Do not spend money or promise a permanently available free host.
 
 Templates in deploy/ prepare systemd, configuration and HTTPS proxy behavior. They
 are not installed/activated or production-tested. Start.sh is for the remote server,
@@ -76,6 +97,7 @@ it does not run the AI backend or supply the app's private persistent file volum
 
 Additional implementation: wsgi.py and requirements-hosting.txt provide optional
 traditional-host compatibility. One additional WSGI integration test passed.
-No application data was transferred to a hosting provider or the owner’s laptop.
-GitHub source publication is complete; application hosting remains blocked on an
-authorized account, HTTPS access and verified persistent storage.
+Only source/configuration preparation files have been staged at the hosting
+provider; no owner files or passwords were transferred. No laptop installation or
+download occurred. GitHub source publication is complete; live hosting remains
+pending dependency/owner initialization, HTTPS and persistent-storage checks.

@@ -1,0 +1,30 @@
+"""Install as /var/www/<username>_pythonanywhere_com_wsgi.py after bootstrap.
+
+The initial-owner check deliberately fails closed. No source/data mapping should
+be published directly by the provider; FastAPI serves its own static assets.
+"""
+import os,sys,sqlite3
+from pathlib import Path
+from contextlib import closing
+
+home=Path.home()
+source=home/'haven'
+data=home/'haven-data'
+for name in ('OPENBLAS_NUM_THREADS','OMP_NUM_THREADS','MKL_NUM_THREADS','NUMEXPR_NUM_THREADS'):
+    os.environ[name]='1'
+os.umask(0o077)
+os.environ['HAVEN_CLOUD_ONLY']='1'
+os.environ['HAVEN_DATA_DIR']=str(data)
+os.environ['HAVEN_ALLOWED_HOSTS']=home.name+'.pythonanywhere.com'
+os.environ['HAVEN_QUOTA_MB']='64'
+os.environ['HAVEN_OLLAMA_MODEL']=''
+
+database=data/'haven.sqlite3'
+if not database.is_file():raise RuntimeError('Private owner initialization is required before Haven can run.')
+with closing(sqlite3.connect(database.as_uri()+'?mode=ro',uri=True)) as connection:
+    if connection.execute("SELECT 1 FROM settings WHERE key='password'").fetchone() is None:
+        raise RuntimeError('Private owner initialization is required before Haven can run.')
+
+sys.path.insert(0,str(source))
+from wsgi import create_wsgi_application
+application=create_wsgi_application()

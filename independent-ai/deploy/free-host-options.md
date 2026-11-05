@@ -1,7 +1,11 @@
 # Zero-new-spending hosting check — 4 November 2026
 
-The owner confirmed that no hosting account exists outside this Codex workspace.
-No account has been created, card provided, plan upgraded or service published.
+Update, 5 November 2026: the owner created the free PythonAnywhere account and
+provided a token through secure settings. Authenticated CPU/version/console/webapp
+reads and private source upload/read-back now work. Python 3.13 is available;
+there were no pre-existing webapps or consoles. Installation, disk footprint,
+owner initialization and real HTTPS remain unverified. No plan was upgraded or
+paid service selected. The original review below records the earlier proposal.
 
 ## Conditional first candidate: PythonAnywhere Beginner
 
@@ -45,12 +49,10 @@ compatibility, not an actual PythonAnywhere deployment or account eligibility.
   requirement. No supported renewal automation has been configured or verified.
 - Do not upgrade, add billing, accept charges or promise permanent free hosting.
 
-The next indispensable owner step, if this limited free pilot is acceptable, is to
-create a Beginner account through the provider's secure signup page and report
-only the username. Account consent/email verification cannot be completed by the
-assistant as the owner. Secure operator access is a later step; no password or API
-token belongs in chat. The assistant handles technical setup once supported access
-exists; no laptop installation or file download is required from the owner.
+Registration and secure operator access are complete. The next owner-only action
+is opening the prepared private provider console and choosing a Haven password
+through hidden input. Console creation through the API does not start its process;
+see deploy/account-access.md. No laptop installation/download is required.
 
 ## Alternatives not selected
 
@@ -68,6 +70,6 @@ exists; no laptop installation or file download is required from the owner.
 
 There is a plausible limited free-pilot path; no verified live service yet.
 This workspace alone still lacks user-facing ingress and durable-host guarantees.
-The remaining immediate blocker is owner hosting-account registration/consent,
-followed by supported secure access and actual provider tests. Research, a WSGI
-compatibility test and a prepared app do not substitute for those checks.
+The remaining immediate gate is starting the prepared private bootstrap console,
+followed by actual dependency/disk/owner/HTTPS/persistence checks. Research, a WSGI
+compatibility test and source staging do not substitute for those checks.
