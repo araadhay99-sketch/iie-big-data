@@ -58,7 +58,8 @@ class Provider:
             raise ValueError('Provider file path must be normalized and absolute.')
         scopes=(root+'/haven-install/',root+'/haven/',root+'/haven-data/')
         wsgi='/var/www/'+self.username+'_pythonanywhere_com_wsgi.py'
-        if not(path.startswith(scopes) or path==wsgi):raise ValueError('Provider file path outside Haven directories.')
+        logs=tuple('/var/log/'+self.username+'.pythonanywhere.com.'+kind+'.log' for kind in ('error','server','access'))
+        if not(path.startswith(scopes) or path==wsgi or (not write and path in logs)):raise ValueError('Provider file path outside Haven directories.')
         if write and path.startswith(root+'/haven-data/'):raise ValueError('Use the private bootstrap for owner data initialization.')
         return path
     def read_file(self,path):

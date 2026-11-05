@@ -2,10 +2,13 @@
 
 Update, 5 November 2026: the owner created the free PythonAnywhere account and
 provided a token through secure settings. Authenticated CPU/version/console/webapp
-reads and private source upload/read-back now work. Python 3.13 is available;
-there were no pre-existing webapps or consoles. Installation, disk footprint,
-owner initialization and real HTTPS remain unverified. No plan was upgraded or
-paid service selected. The original review below records the earlier proposal.
+reads and private source upload/read-back work. Dependencies installed and synthetic
+WSGI/home-filesystem checks passed; owner initialization is complete. Home file
+allocation measured about 41.2 MiB. The traditional Python 3.13 site is enabled,
+HTTPS is required, and the provider reports a ready worker with an empty error log.
+External HTTPS/login checks remain pending a saved application-domain network
+addition. No plan was upgraded or paid service selected. The original review below
+records the earlier proposal; current status is in STATUS.md.
 
 ## Conditional first candidate: PythonAnywhere Beginner
 
@@ -49,10 +52,10 @@ compatibility, not an actual PythonAnywhere deployment or account eligibility.
   requirement. No supported renewal automation has been configured or verified.
 - Do not upgrade, add billing, accept charges or promise permanent free hosting.
 
-Registration and secure operator access are complete. The next owner-only action
-is opening the prepared private provider console and choosing a Haven password
-through hidden input. Console creation through the API does not start its process;
-see deploy/account-access.md. No laptop installation/download is required.
+Registration, secure operator access and hidden owner-password initialization are
+complete. The immediate owner action is review/save/publication of the prepared
+workspace network addition, so the assistant can test the actual application route.
+See deploy/account-access.md. No laptop installation/download is required.
 
 ## Alternatives not selected
 
@@ -70,6 +73,6 @@ see deploy/account-access.md. No laptop installation/download is required.
 
 There is a plausible limited free-pilot path; no verified live service yet.
 This workspace alone still lacks user-facing ingress and durable-host guarantees.
-The remaining immediate gate is starting the prepared private bootstrap console,
-followed by actual dependency/disk/owner/HTTPS/persistence checks. Research, a WSGI
-compatibility test and source staging do not substitute for those checks.
+Installation and provider-side smoke/persistence checks passed. The remaining
+immediate gate is workspace access to the application hostname for real HTTPS/login
+checks. Independent disaster recovery and automatic monthly renewal remain absent.

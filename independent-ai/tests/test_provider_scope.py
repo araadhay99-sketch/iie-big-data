@@ -28,5 +28,10 @@ class ProviderScopeTest(unittest.TestCase):
         with self.assertRaises(ProviderError) as caught:Provider('example','synthetic-secret',Broken()).request('GET','consoles/')
         self.assertEqual(caught.exception.status,403)
         self.assertNotIn('synthetic-secret',str(caught.exception))
+    def test_only_this_sites_known_logs_can_be_read_and_never_written(self):
+        self.assertEqual(self.api.read_file('/var/log/example.pythonanywhere.com.error.log'),b'{}')
+        for path in ('/var/log/other.pythonanywhere.com.error.log','/var/log/example.pythonanywhere.com.unknown.log'):
+            with self.assertRaises(ValueError):self.api.read_file(path)
+        with self.assertRaises(ValueError):self.api.upload('/var/log/example.pythonanywhere.com.error.log',b'overwrite')
 
 if __name__=='__main__':unittest.main()

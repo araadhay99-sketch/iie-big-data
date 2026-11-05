@@ -8,7 +8,7 @@ copy the provider's injected `API_TOKEN` out of its runtime.
 
 Verified provider reads:
 
-- 100 daily console CPU seconds; no existing traditional webapp or console.
+- 100 daily console CPU seconds; initial inspection found no existing site/console.
 - Current system image `innit`; Python 3.13, 3.12, 3.11, 3.10 and 3.9 available.
 - No existing Haven deployment paths before staging.
 - The minimal source ZIP and fail-closed WSGI template were uploaded under the
@@ -16,8 +16,11 @@ Verified provider reads:
 
 The advertised free plan has 512 MiB total private disk and one traditional webapp.
 No plan upgrade, card, paid task, experimental ASGI service or charge was requested.
-Actual installed footprint, home filesystem compatibility, public HTTPS and
-restart/recovery still need provider-side checks.
+Installation and synthetic WSGI/home-filesystem checks passed. Measured file
+allocation is 43,172,629 bytes; owner initialization is complete. The traditional
+WSGI site is enabled with HTTPS required, no static mappings, a ready worker and
+an empty error log. External HTTPS/login and public-route restart/recovery checks
+remain pending the saved workspace network addition for the application domain.
 
 ## Console boundary
 
@@ -38,11 +41,10 @@ The public WSGI entry point refuses to initialize an unclaimed workspace.
 1. Read `STATUS.md` and ignored `.private-hosting/deployment-state.json`.
 2. Recheck runtime readiness and the prepared console's private
    `~/haven-install/status.json`. Do not create duplicate consoles or repeat uploads.
-3. If initialization is incomplete, diagnose its recorded safe stage. Ask only for
-   the outstanding owner credential/browser action, with the prepared direct link.
-4. Once ready, inspect actual dependency footprint and disk headroom. Preserve any
-   newly existing site/configuration. Configure the single traditional WSGI site,
-   force HTTPS, and serve no public mapping to source, data or installer directories.
+3. Initialization is now complete. Do not request the password in chat, reenter it
+   into the console, create another console/site or overwrite existing owner data.
+4. Recheck application-domain network readiness after the owner applies the draft.
+   Keep the existing WSGI site, HTTPS requirement and zero static mappings intact.
 5. Verify the real route, owner claimed state, authentication boundary and persistent
    filesystem/restart behavior before reporting a usable service. No configured
    automatic renewal or independent disaster recovery is currently verified.
@@ -50,4 +52,5 @@ The public WSGI entry point refuses to initialize an unclaimed workspace.
 The read-only preflight is `python3 deploy/pythonanywhere_preflight.py --report
 .private-hosting/preflight.json`. Its synthetic tests are separate from the live
 account checks. The scoped deployment client forbids billing/always-on operations,
-other accounts' sites and direct owner-data uploads.
+other accounts' sites and direct owner-data uploads. It permits read-only access
+to this site's three exact provider log paths, never unrelated logs or log writes.

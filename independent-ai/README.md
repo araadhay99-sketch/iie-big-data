@@ -7,17 +7,16 @@ server. Improving intelligence is deferred.
 
 ## Actual status
 
-The cloud-only application is implemented and tested inside this managed cloud
-workspace. **It is not a publicly accessible, always-on cloud service yet.** This
-session exposes no supported inbound HTTPS/preview route. Authenticated management
-access to the owner's free PythonAnywhere account now works; minimal source and
-a fail-closed WSGI template are staged there. Installation and provider deployment
-remain pending. The environment's outbound proxy does not itself expose the app.
+The cloud-only application is installed on the owner's free PythonAnywhere account.
+Its Python 3.13 WSGI site is enabled with HTTPS required. Provider-side synthetic
+login/upload/answer/persistence checks passed; the worker reports ready and its
+error log was empty. Owner initialization is complete and the file payload quota
+is 64 MiB. **External HTTPS/login verification is pending** a saved network update
+allowing this workspace to reach the application domain. See STATUS.md.
 
-No public URL, production deployment, paid subscription/storage or new
-hosting expenditure has been created. Do not tell the user to install or download
-Haven onto their laptop. The source and internal review archive stay in this cloud
-workspace until a usable hosting route is provided.
+No paid subscription/storage was enabled. The provider reports site expiry on
+5 December 2026; renewal automation and independent disaster recovery are not
+configured. Do not install or download Haven onto the owner's laptop.
 
 ## What cloud-only mode does
 
@@ -149,9 +148,10 @@ It is not an application dependency. Synthetic test workspaces are deleted after
 checks. The browser suite verifies no application-managed browser persistence,
 server-side file/history survival across reload, no download controls and no
 external HTTP requests. Legacy-mode regression tests are also retained separately.
-No public cloud endpoint or persistent external hosting volume was verified.
+Provider-side synthetic checks also passed on its home filesystem. External HTTPS,
+browser login and public-route restart checks remain pending; see STATUS.md.
 
-## Conditional free-pilot option
+## Free-pilot hosting
 
 The owner created a PythonAnywhere account and securely connected its management
 API. Beginner is advertised at $0/month with one web app, HTTPS and 512 MiB total private
@@ -161,8 +161,8 @@ this is not a promise of maintenance-free, permanently available hosting.
 The optional wsgi.py adapter works with traditional Python WSGI hosting and has
 passed a cloud-login/upload/answer test. requirements-hosting.txt contains the
 extra dependency. Provider file read/write and account/version inspection work;
-the private bootstrap must still install dependencies, measure disk use and secure
-the owner before live configuration. See deploy/account-access.md and STATUS.md.
-No owner laptop installation is needed. The owner must open the prepared console
-to start it and enter their Haven password through hidden input. No paid plan has
-been selected, and periodic renewal/recovery automation is not configured.
+the private bootstrap installed dependencies, passed synthetic checks and secured
+the owner before site configuration. Measured home allocation was about 41.2 MiB.
+See deploy/account-access.md, deploy/pythonanywhere-operation.md and STATUS.md.
+No owner laptop installation is needed. No paid plan has been selected, and
+periodic renewal/recovery automation is not configured.
