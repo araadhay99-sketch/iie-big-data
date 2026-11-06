@@ -1,57 +1,65 @@
-# PythonAnywhere operation — 5 November 2026
+# PythonAnywhere operation — 6 November 2026
 
-Current phase: **site enabled; external verification blocked by workspace policy**.
-Read STATUS.md and ignored .private-hosting/deployment-state.json first. That file
-contains account-specific URLs and measurements; never commit it or application
-data. Do not repeat initialization, console creation or website creation.
+Current phase: **verified live free pilot**. Read STATUS.md and ignored
+.private-hosting/deployment-state.json first. The private record has actual URLs,
+checksums and safe verification results. Do not commit it or owner data, reinitialize
+credentials, create duplicate consoles/sites, or clear existing owner history.
 
 ## Installed configuration
 
-- Traditional WSGI / Python 3.13, using ~/haven-venv and source ~/haven.
-- Data ~/haven-data, private directory; 64 MiB file payload quota.
-- Cloud-only mode enabled; Ollama unset; BLAS thread counts limited to one.
-- Provider WSGI path: /var/www/<username>_pythonanywhere_com_wsgi.py.
-- WSGI template uploaded and read back exactly; it refuses an unclaimed workspace.
-- HTTPS enforced; no provider static-file mapping exposes source, installer or data.
-- Provider native certificate metadata exists; actual TLS route not yet checked.
-- Free-site expiry reported as 5 December 2026. No renewal automation is configured.
+- Traditional WSGI, Python 3.13, source ~/haven, virtualenv ~/haven-venv.
+- Private data ~/haven-data; 64 MiB file payload quota; cloud-only mode enabled.
+- No Ollama model/external AI API. BLAS thread counts limited to one.
+- Provider entry point /var/www/<username>_pythonanywhere_com_wsgi.py checks an
+  existing owner password record before exposing the app. No public static mapping
+  exposes source, installer or data. HTTPS is enforced; HTTP redirects verified.
+- Runtime entry point must initialize inside the worker's first request, not in
+  the prefork master. Threads do not survive fork; opening Store in the master also
+  shares its flock. Keep the lazy initialization/PID guards in wsgi.py.
 
-The provider create API required `python313`; configuration metadata returns
-`3.13`. Live OPTIONS advertises the configuration representation, while the
-[official create example](https://help.pythonanywhere.com/pages/API/#webapps)
-uses `python310` for Python 3.10. One initial creation request with `3.13` returned
-400 and created no site; the corrected format succeeded. Do not recreate the site.
+The create API required python313, while configuration returns 3.13. The official
+API create example uses python310 for Python 3.10:
+https://help.pythonanywhere.com/pages/API/#webapps . Do not recreate the live site.
 
-## Next verification
+## Verification evidence
 
-The network draft adds the application hostname only, retaining existing custom
-hosts and leaving PA_API_TOKEN scoped to www.pythonanywhere.com. Saving the draft
-did not apply or publish it. After the owner reviews/saves/publishes it:
+- 39 automated tests passed, including bounded POSIX fork, initialization failure
+  cleanup and cloud-only integration. A final 19-test app regression also passed
+  after the small built-in help-text correction.
+- Seven anonymous public endpoints: real page/assets/session succeed; protected
+  file/message/status routes deny access. Responses use no-store and no cookies.
+- 28 live authenticated checkpoints: password login, ownership protection, indexed
+  cloud notes, sourced answer, downloads disabled, Trash/restore/purge and cleanup.
+- Provider startup records confirmed a newer server instance after requested
+  restart. Owner login, cloud guide note and conversation persisted. Provider logs
+  can update asynchronously and PIDs can be reused; use full startup timestamps/
+  generation evidence, not PID alone. API reload acknowledgement alone is not proof.
+- A Getting started.md guide and explicitly labelled demonstration remain. Only
+  generated temporary test files were purged; no existing owner data was deleted.
+- Earlier local browser suites passed ten cloud-only and thirteen legacy checks.
+  Live Chromium UI automation did not load the page: its workspace browser lacks
+  trust for the platform HTTPS proxy CA. No bypass/shared-profile mutation was used.
+  Do not claim live browser screenshots or browser UI checks passed.
 
-1. Inspect runtime readiness and the executor network snapshot before requests.
-2. GET the actual HTTPS /api/session: expect authenticated=false,
-   setup_required=false and cloud_only=true. Check page/assets and no-store headers.
-3. Confirm /api/files and /api/messages reject anonymous access. Confirm HTTP
-   redirects to HTTPS without submitting credentials over plaintext HTTP.
-4. Exercise real authorized login, cloud note, sourced answer, Trash/restore/purge
-   using clearly synthetic data only. Keep credentials/tokens in memory and out of
-   shell arguments, files, screenshots, command output and committed records.
-5. Check a provider reload/restart preserves server data. The app holds an exclusive
-   process lock; overlapping workers may refuse startup. If necessary use a cold
-   disable/enable cycle and inspect only this site's error/server logs. Do not
-   delete server.lock or bypass process locking. Preserve all owner content.
+## Future changes and maintenance
 
-Provider-side synthetic setup/login/upload/answer/download-blocking and reopened
-file/history checks passed in a temporary home-filesystem workspace, which was
-removed. Worker startup and an empty error log were independently verified. Those
-results do not replace real public-route tests.
+Inspect runtime network/credential readiness before operations. The application
+network addition is already published; do not reapply/publish it again. PA_API_TOKEN
+remains destination-bound only to www.pythonanywhere.com. Never print or copy it.
+Keep any login credentials and bearer sessions out of commands, files and logs.
 
-The owner reported difficulty with invisible console input and explicitly
-authorized assistant entry. Initialization then completed through the hidden
-prompt. Do not retain or repeat that credential; any future credential entry must
-use an appropriate secure mechanism and valid owner authorization.
+Read provider state before updates and preserve source/data. Upload only intended
+runtime files, read back hashes, then reload. Test affected real routes. Avoid
+concurrent workers using the data directory. If overlapping reload causes a flock
+conflict, use the provider's cold disable/enable cycle; never delete server.lock or
+bypass locking. Scope log reads to this site's known paths and avoid raw log dumps.
 
-No independent backup service, scheduled tasks, maintenance agent or automatic
-renewal has been provisioned. Server backups/restores remain an offline procedure
-in backup.py. Provider persistence, application checks and disaster recovery are
-separate claims. Do not describe this free pilot as maintenance-free or permanent.
+The free-site expiry is 5 December 2026. Periodic renewal, scheduled maintenance
+and independent backups are not automated. File payload quota is separate from
+512 MiB advertised total account disk and database/index/backup overhead. Initial
+home allocation measured about 41.2 MiB, not an authoritative quota reading.
+
+Server backups/restores remain offline operations in backup.py. Restart persistence
+is verified; entire-provider loss/recovery is not. No paid upgrade, billing mandate,
+scheduler or independent backup service was enabled. Hosting serves normal requests
+without an active chat; changes and maintenance need an authorized active session.

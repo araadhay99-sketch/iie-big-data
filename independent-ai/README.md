@@ -11,8 +11,9 @@ The cloud-only application is installed on the owner's free PythonAnywhere accou
 Its Python 3.13 WSGI site is enabled with HTTPS required. Provider-side synthetic
 login/upload/answer/persistence checks passed; the worker reports ready and its
 error log was empty. Owner initialization is complete and the file payload quota
-is 64 MiB. **External HTTPS/login verification is pending** a saved network update
-allowing this workspace to reach the application domain. See STATUS.md.
+is 64 MiB. **Live HTTPS/login/storage checks now pass**, including sourced answers,
+Trash/restore/purge and data surviving a confirmed provider restart. A Getting
+started note and labelled demonstration are saved in the cloud. See STATUS.md.
 
 No paid subscription/storage was enabled. The provider reports site expiry on
 5 December 2026; renewal automation and independent disaster recovery are not
@@ -50,7 +51,7 @@ providers and redirects are rejected. Leave HAVEN_OLLAMA_MODEL unset for now.
 
 ## Server operation — never on the owner’s laptop
 
-Tested on Linux/Python 3.12. A hosting operator can install dependencies once and
+Tested on Linux/Python 3.12 and hosted Python 3.13. A hosting operator can install dependencies once and
 run the service on the authorized remote server. Runtime use needs no external
 AI or storage service. Keep these commands and any virtual environment on that
 server, not the user’s laptop:
@@ -148,8 +149,11 @@ It is not an application dependency. Synthetic test workspaces are deleted after
 checks. The browser suite verifies no application-managed browser persistence,
 server-side file/history survival across reload, no download controls and no
 external HTTP requests. Legacy-mode regression tests are also retained separately.
-Provider-side synthetic checks also passed on its home filesystem. External HTTPS,
-browser login and public-route restart checks remain pending; see STATUS.md.
+Provider-side synthetic checks passed on its home filesystem. Seven anonymous
+public route checks and 28 live authenticated checkpoints also passed, including
+restart persistence. All 39 automated tests passed after the prefork startup fix.
+Live Chromium UI automation was blocked before page load by its workspace proxy
+CA trust; TLS verification was preserved. Local browser suites passed separately.
 
 ## Free-pilot hosting
 

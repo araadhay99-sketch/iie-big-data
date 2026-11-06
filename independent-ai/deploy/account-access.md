@@ -18,9 +18,11 @@ The advertised free plan has 512 MiB total private disk and one traditional weba
 No plan upgrade, card, paid task, experimental ASGI service or charge was requested.
 Installation and synthetic WSGI/home-filesystem checks passed. Measured file
 allocation is 43,172,629 bytes; owner initialization is complete. The traditional
-WSGI site is enabled with HTTPS required, no static mappings, a ready worker and
-an empty error log. External HTTPS/login and public-route restart/recovery checks
-remain pending the saved workspace network addition for the application domain.
+WSGI site is enabled with HTTPS required and no static mappings. The application
+domain network addition is applied. Seven anonymous route checks and 28 live
+authenticated checkpoints passed, including indexed notes, sourced answers,
+download blocking, Trash/restore/purge and persistence after provider restart.
+Independent backup/disaster recovery and automated renewal remain unconfigured.
 
 ## Console boundary
 
@@ -43,11 +45,12 @@ The public WSGI entry point refuses to initialize an unclaimed workspace.
    `~/haven-install/status.json`. Do not create duplicate consoles or repeat uploads.
 3. Initialization is now complete. Do not request the password in chat, reenter it
    into the console, create another console/site or overwrite existing owner data.
-4. Recheck application-domain network readiness after the owner applies the draft.
+4. Inspect current application-domain network readiness before future changes.
    Keep the existing WSGI site, HTTPS requirement and zero static mappings intact.
-5. Verify the real route, owner claimed state, authentication boundary and persistent
-   filesystem/restart behavior before reporting a usable service. No configured
-   automatic renewal or independent disaster recovery is currently verified.
+5. The real route, owner claimed state, authentication boundary and restart
+   persistence now pass. Retest affected behavior after future changes. Automated
+   live Chromium UI checks remain unrun due browser proxy-CA trust, while the local
+   UI suites passed. No automatic renewal or independent disaster recovery exists.
 
 The read-only preflight is `python3 deploy/pythonanywhere_preflight.py --report
 .private-hosting/preflight.json`. Its synthetic tests are separate from the live

@@ -54,7 +54,7 @@ class LocalAssistant:
         answers={
             'hello':'Hello. I’m Haven, your local knowledge assistant. Upload a text, Markdown or CSV file, then ask about its contents.',
             'identity':'I’m a small local AI using a trained intent classifier and document relevance model. I run on this server without an external AI API. I’m not a general-purpose language model.',
-            'help':'Upload files in Files, then ask a question here. I search supported text files and show relevant passages with sources. Any file type can be stored and downloaded; UTF-8 TXT, Markdown and CSV files can be searched. Move files to Trash to exclude them from answers, or restore them later.',
+            'help':'Upload files in Files, then ask a question here. I search supported text files and show relevant passages with sources. Any file type can be stored; UTF-8 TXT, Markdown and CSV files can be searched. Move files to Trash to exclude them from answers, or restore them later.',
             'privacy':'Your files, search index and chat history stay in this server’s data folder. This built-in mode makes no external network requests. Server storage is not encrypted by this app; use disk encryption and HTTPS for your own deployment when needed.',
             'storage':f"You have {storage['file_count']} active files and {storage['trash_count']} in Trash. Stored files use {storage['used_bytes']:,} of {storage['quota_bytes']:,} bytes. Trash still counts toward the quota.",
             'thanks':'You’re welcome. Ask about an uploaded file whenever you’re ready.',

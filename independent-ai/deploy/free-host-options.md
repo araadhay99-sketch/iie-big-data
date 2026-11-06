@@ -6,9 +6,10 @@ reads and private source upload/read-back work. Dependencies installed and synth
 WSGI/home-filesystem checks passed; owner initialization is complete. Home file
 allocation measured about 41.2 MiB. The traditional Python 3.13 site is enabled,
 HTTPS is required, and the provider reports a ready worker with an empty error log.
-External HTTPS/login checks remain pending a saved application-domain network
-addition. No plan was upgraded or paid service selected. The original review below
-records the earlier proposal; current status is in STATUS.md.
+Update, 6 November: the network addition is applied and live HTTPS/login, note
+retrieval, file operations and provider-restart persistence checks passed. No plan
+was upgraded or paid service selected. The original review below records the
+earlier proposal; current evidence and browser-test limits are in STATUS.md.
 
 ## Conditional first candidate: PythonAnywhere Beginner
 
@@ -53,9 +54,9 @@ compatibility, not an actual PythonAnywhere deployment or account eligibility.
 - Do not upgrade, add billing, accept charges or promise permanent free hosting.
 
 Registration, secure operator access and hidden owner-password initialization are
-complete. The immediate owner action is review/save/publication of the prepared
-workspace network addition, so the assistant can test the actual application route.
-See deploy/account-access.md. No laptop installation/download is required.
+complete. The network addition and actual application-route tests are also complete.
+No further owner setup is needed to launch this pilot. Free-site periodic renewal
+is still required and not automated. See deploy/account-access.md.
 
 ## Alternatives not selected
 
@@ -71,8 +72,8 @@ See deploy/account-access.md. No laptop installation/download is required.
 
 ## Verdict
 
-There is a plausible limited free-pilot path; no verified live service yet.
-This workspace alone still lacks user-facing ingress and durable-host guarantees.
-Installation and provider-side smoke/persistence checks passed. The remaining
-immediate gate is workspace access to the application hostname for real HTTPS/login
-checks. Independent disaster recovery and automatic monthly renewal remain absent.
+Haven is a verified live free pilot on the owner's PythonAnywhere account.
+Installation, real HTTPS/login, file operations, sourced answers and provider-restart
+persistence checks passed. Hosting runs outside this managed workspace. Independent
+disaster recovery and automatic monthly renewal remain absent; the free-site expiry
+reported by the provider is 5 December 2026.

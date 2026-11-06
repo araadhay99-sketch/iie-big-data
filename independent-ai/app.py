@@ -131,7 +131,11 @@ def create_app(settings=None):
     parsed=urlsplit(settings.ollama_url)
     if parsed.scheme not in ('http','https') or parsed.hostname not in ('127.0.0.1','localhost','::1') or parsed.username or parsed.password or parsed.query or parsed.fragment:
         raise ValueError('Optional Ollama must use a loopback URL, never an external provider.')
-    store=Store(settings);ai=LocalAssistant()
+    store=Store(settings)
+    try:ai=LocalAssistant()
+    except BaseException:
+        store.close()
+        raise
     @asynccontextmanager
     async def lifespan(app):
         try:yield
