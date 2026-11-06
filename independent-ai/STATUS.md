@@ -56,3 +56,10 @@ The safe browser result is in ignored artifacts/. No UI assets changed in the fi
   network addition is applied; do not save/publish it again. Do not reinitialize
   owner credentials, duplicate sites/consoles or delete owner data. Spend nothing
   without approval. The earlier income/business project remains separate and paused.
+
+## Restarted project
+
+On 6 November the owner requested a new personal computer/STEM AI with a 20 GB
+project cap and desired 1 PB external cloud. Current work is recorded separately
+in ../kaisen-ai/STATUS.md and ../CURRENT_PROJECT.md. This Haven service remains
+live; its earlier completion does not mean the new model/PB request is fulfilled.

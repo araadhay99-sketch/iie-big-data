@@ -1,0 +1,14 @@
+__pycache__/
+.venv/
+data/
+models/
+runtime/
+artifacts/
+*.sqlite3*
+*.part
+*.log
+.storage.lock
+.cache/
+*.egg-info/
+build/
+dist/

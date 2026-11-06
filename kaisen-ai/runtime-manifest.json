@@ -1,0 +1,14 @@
+{
+  "repository": "ggml-org/llama.cpp",
+  "tag": "b12175",
+  "revision": "9a1d03c7ca2ca279feca8afd29d40c8e0fff9b6d",
+  "prerelease": true,
+  "filename": "llama-b12175-bin-ubuntu-x64.tar.gz",
+  "size_bytes": 23047234,
+  "sha256": "0296899717946797a68c47ad0339ff20d3f868ea0ebcb7532e365c8575b78849",
+  "download_url": "https://github.com/ggml-org/llama.cpp/releases/download/b12175/llama-b12175-bin-ubuntu-x64.tar.gz",
+  "source_url": "https://api.github.com/repos/ggml-org/llama.cpp/releases/assets/717719273",
+  "metadata_checked": "2026-11-06",
+  "max_members": 512,
+  "max_expanded_bytes": 536870912
+}

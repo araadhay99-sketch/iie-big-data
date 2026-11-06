@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "kaisen-science"
+version = "0.1.0"
+description = "Personal science assistant prototype with verified tools and bounded file search"
+requires-python = ">=3.12"
+dependencies = ["sympy==1.14.0"]
+
+[project.scripts]
+kaisen = "kaisen.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["kaisen*"]
+
+[tool.setuptools.package-data]
+kaisen = ["model-manifest.json"]
